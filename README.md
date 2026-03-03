@@ -10,6 +10,23 @@
 - **标准化容器部署 (Containerized Deployment)**：提供生产级别的 Dockerfile 与 Docker Compose 编排方案，支持跨平台一键部署与持久化外部挂载，避免大模型的重复下载损耗。
 - **环境隔离验证机制 (Zero-Dependency Mock Environment)**：集成独立的纯前端联调脚本 (`test_main.py`)，允许在不加载庞大底层 LLM 权重的状态下进行接口及前端的快速验证。
 
+## 界面展示
+
+<p align="center">
+  <img src="docs/images/ui_homepage.png" width="80%" alt="系统首页"/>
+  <br/><em>系统首页：暗色主题交互界面，支持目标发言输入与多轮对话历史配置</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/ui_result_joy.png" width="80%" alt="单句情绪识别结果"/>
+  <br/><em>单句识别：输入 "I just got promoted at work!" 后，系统准确识别情绪为 Joy</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/ui_result_fear_history.png" width="80%" alt="多轮对话情绪识别结果"/>
+  <br/><em>上下文感知：结合两轮对话历史（登山 → 雷暴），系统识别目标发言情绪为 Fear</em>
+</p>
+
 ## 项目结构
 
 ```text
@@ -134,8 +151,8 @@
 
 ## 贡献者
 
-| <a href="https://github.com/biggboss01Scratch"><img src="https://github.com/biggboss01Scratch.png" width="80" alt="Qian Chen"/><br/><sub>Qian Chen</sub></a> | <a href="https://github.com/ClarkDream"><img src="https://github.com/ClarkDream.png" width="80" alt="ClarkDream"/><br/><sub>ClarkDream</sub></a> | <a href="https://github.com/fQwQf"><img src="https://github.com/fQwQf.png" width="80" alt="fQwQf"/><br/><sub>fQwQf</sub></a> |
-|:---:|:---:|:---:|
+| <a href="https://github.com/biggboss01Scratch"><img src="https://github.com/biggboss01Scratch.png" width="80" alt="Qian Chen"/><br/><sub>Qian Chen</sub></a> | <a href="https://github.com/ClarkDream"><img src="https://github.com/ClarkDream.png" width="80" alt="ClarkDream"/><br/><sub>ClarkDream</sub></a> | <a href="https://github.com/fQwQf"><img src="https://github.com/fQwQf.png" width="80" alt="fQwQf"/><br/><sub>fQwQf</sub></a> |<a href="https://github.com/Huhdfy"><img src="https://github.com/Huhdfy.png" width="80" alt="Huhdfy"/><br/><sub>Huhdfy</sub></a> 
+|:---:|:---:|:---:|:---:|
 
 ---
 *Powered by WHU EmotionAI 2026 Team.*
