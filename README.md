@@ -132,5 +132,10 @@
 }
 ```
 
+## 贡献者
+
+| <a href="https://github.com/biggboss01Scratch"><img src="https://github.com/biggboss01Scratch.png" width="80" alt="Qian Chen"/><br/><sub>Qian Chen</sub></a> | <a href="https://github.com/ClarkDream"><img src="https://github.com/ClarkDream.png" width="80" alt="ClarkDream"/><br/><sub>ClarkDream</sub></a> | <a href="https://github.com/fQwQf"><img src="https://github.com/fQwQf.png" width="80" alt="fQwQf"/><br/><sub>fQwQf</sub></a> |
+|:---:|:---:|:---:|
+
 ---
 *Powered by WHU EmotionAI 2026 Team.*
