@@ -25,10 +25,9 @@ def verify_api():
     print("▶️ 正在启动 FastAPI 测试桩...")
     
     server_process = subprocess.Popen(
-        "uvicorn api.test_main:app --host 127.0.0.1 --port 8000",
+        [sys.executable, "-m", "uvicorn", "api.test_main:app", "--host", "127.0.0.1", "--port", "8000"],
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=True
+        stderr=subprocess.PIPE
     )
     
     # Give the server a few seconds to boot up

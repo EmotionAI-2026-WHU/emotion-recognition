@@ -31,6 +31,15 @@
 3. **推理优化**：深度集成 BitsAndBytes 4-bit 数值量化方案，在维持原始模型表征精度的同时，严控显存分配开销并提升端到端吞吐率。
 4. **服务化封装**：基于 ASGI 框架 FastAPI 构建高度异步化与非阻塞的对内/对外接口，实现底层模型计算节点与上层业务前端的高效融合。
 
+### 端到端自动化管线 (`run_pipeline.sh`)
+
+本项目根目录下提供了一个 `run_pipeline.sh` 脚本，其核心作用是**提供一键式、端到端的模型拉取与 LoRA 微调 (SFT) 工作流**。主要针对需要从头训练或在 AutoDL 等云服务器上快速复现实验的开发者。
+执行该脚本 (`bash run_pipeline.sh`) 将自动串行触发以下全过程：
+1. **环境拦截与安装**：检测系统并强行补齐 `transformers`, `peft`, `bitsandbytes` 等核心训练依赖。
+2. **连接 HuggingFace 镜像节点**：配置 `HF_ENDPOINT` 到国内云镜像加速下载。
+3. **数据集处理**：先后调用 `organize_raw_datasets.py` 和 `prepare_data.py` 将原始文本流格式化为含蓄的对话大背景 Prompt Context 片段，建立缓存。
+4. **Qwen2.5 启动并行微调**：命令底层引擎开始拉取基础底座模型并发起 `train_7b_sota.py`，采用 4-bit 并行策略跑完几个 Epoch，微调后的个人适配器（Adapter）权重将被导出至 `./outputs/my_finetuned_lora` 中，供后续 API 直接挂载使用。
+
 ## 性能指标 (State-of-the-Art)
 
 模型在对话情绪识别（Emotion Recognition in Conversations, ERC）的标准化评估中达到 State-of-the-Art (SOTA) 级别的性能。
