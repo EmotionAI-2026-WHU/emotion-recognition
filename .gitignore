@@ -34,8 +34,8 @@ venv.bak/
 ERC/
 te/
 
-# Data and Models
-data/
+# Data and Models (only root-level)
+/data/
 cache/
 outputs/
 models/

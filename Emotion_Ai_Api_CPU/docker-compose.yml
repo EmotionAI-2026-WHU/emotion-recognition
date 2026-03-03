@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  emotion-api-cpu:
+    build: .
+    container_name: emotion_ai_api_cpu
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    # 允许容器使用宿主机的 NVIDIA GPU (如果可用)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    # 配置数据持久化。如果你把本地下载好的权重映射进去，可以避免镜像启动时重复从远端拉模型
+    volumes:
+      # 用宿主机的 docker_hf_cache 保存 huggingface 下载的内容，不至于每次重启都要重新下载 15GB
+      - hf_cache:/root/.cache/huggingface
+      # 【可选高级用法】：如果您已经在宿主机特定文件夹（例如 D:/models）下载过了模型
+      # 可以取消下面两行的注释，将其挂载进容器然后修改 api/model_inference.py 里的 LORA_PATH
+      # - D:/models:/app/models
+
+volumes:
+  hf_cache:
+    name: emotion_ai_hf_cache

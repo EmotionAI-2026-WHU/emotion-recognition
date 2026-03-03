@@ -1,0 +1,14 @@
+# 核心依赖
+torch==2.1.0
+transformers
+peft
+accelerate
+bitsandbytes==0.41.1  # 用于4-bit量化
+
+# Web框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart  # 处理表单数据
+
+# 工具
+rich  # TUI中用到的美化库（虽然API不需要，但解析函数可能依赖）
