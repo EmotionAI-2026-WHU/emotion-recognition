@@ -14,15 +14,38 @@
 
 ```text
 .
-├── api/                
-│   ├── main.py              # FastAPI 接口实现与路由定义
-│   ├── model_inference.py   # 模型加载、量化配置及推理核心算法逻辑
-│   ├── test_main.py         # 脱离模型依赖的纯前端模拟与联调脚本
-│   └── static/              # 交互式 Web 界面视觉与前端逻辑资产
-├── Dockerfile               # 容器化镜像构建规范配置
-├── docker-compose.yml       # 多节点与外置存储空间服务编排方案
-└── run_pipeline.sh          # 端到端自动化数据预处理与监督微调执行脚本
+├── Emotion_Ai_Api_CPU/         # 推理 API 与前端部署模块
+│   ├── api/                
+│   │   ├── main.py             # FastAPI 接口实现与路由定义
+│   │   ├── model_inference.py  # 模型加载、量化配置及推理算法逻辑
+│   │   ├── test_main.py        # 纯前端模拟与无大模型联调测试
+│   │   └── static/             # 交互式 Web 界面前端逻辑资产
+│   ├── Dockerfile              # API 节点容器化构建配置
+│   └── docker-compose.yml      # 带有 GPU 映射支持的集群编排方案
+├── ERC1/                       # 算法研究、模型训练与推理评估引擎
+│   ├── configs/                # 模型微调、部署环境配置文件
+│   ├── data/                   # 对话情感语料库与格式化数据集
+│   │   ├── raw/                # 原始下载数据（EmpatheticDialogues, GoEmotions, EmoryNLP）
+│   │   └── json/               # 经上下文拼接后的训练/验证/测试样本集
+│   ├── paper/                  # SOTA 性能论证相关的学术论文原稿
+│   ├── scripts/                # 数据预处理、SFT模型训练及评测脚本
+│   └── src/                    # 底层模型库、Pytorch架构及Prompt模板
+├── verify_deployment.py        # 原生 Python 环境下的 API 指标自检脚本
+├── verify_docker_deployment.py # 覆盖启动模式的 Docker 容器连通性测试脚本
+└── run_pipeline.sh             # 一键拉取底座、数据打通及并行微调管线
 ```
+
+## 数据集说明
+
+本项目的模型训练与评估基于以下三个公开对话级情感语料库，所有标签均被统一映射至 28 类细粒度情绪分类体系：
+
+| 数据集 | 来源 | 原始类别数 | 说明 |
+|---|---|---|---|
+| **EmpatheticDialogues** | HuggingFace (`empathetic_dialogues`) | 32 | 基于共情对话的情绪标注语料，覆盖日常人际交互场景 |
+| **GoEmotions** | HuggingFace (`go_emotions`) | 27 | 来自 Reddit 评论的大规模多标签情感分类数据集 |
+| **EmoryNLP** | GitHub (`emorynlp/emotion-detection`) | 7 | 源自电视剧对白的多轮对话情绪检测语料 |
+
+原始数据经 `organize_raw_datasets.py` 下载整理后存放于 `ERC1/data/raw/`，再经 `prepare_data.py` 进行上下文窗口拼接与 Prompt 格式化，最终生成的训练/验证/测试样本存放于 `ERC1/data/json/`。
 
 ## 模型训练工作流
 
@@ -33,7 +56,7 @@
 
 ### 端到端自动化管线 (`run_pipeline.sh`)
 
-本项目根目录下提供了一个 `run_pipeline.sh` 脚本，其核心作用是**提供一键式、端到端的模型拉取与 LoRA 微调 (SFT) 工作流**。主要针对需要从头训练或在 AutoDL 等云服务器上快速复现实验的开发者。
+本项目根目录下提供了一个 `run_pipeline.sh` 脚本，其核心作用是**提供一键式、端到端的模型拉取与 LoRA 微调 (SFT) 工作流**。
 执行该脚本 (`bash run_pipeline.sh`) 将自动串行触发以下全过程：
 1. **环境拦截与安装**：检测系统并强行补齐 `transformers`, `peft`, `bitsandbytes` 等核心训练依赖。
 2. **连接 HuggingFace 镜像节点**：配置 `HF_ENDPOINT` 到国内云镜像加速下载。
