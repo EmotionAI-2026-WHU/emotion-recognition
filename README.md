@@ -35,9 +35,9 @@
 
 模型在对话情绪识别（Emotion Recognition in Conversations, ERC）的标准化评估中达到 State-of-the-Art (SOTA) 级别的性能。
 
-- **泛化表现与精确度验证**：在 EmpatheticDialogues 基准测试中，本模型的精度超越了传统专用型网络结构，在极为细化的标签分布（多达 28 类情绪空间）中体现出稳健的模式识别精度。
-- **因果联系提取 (Impact Extraction)**：在训练范式设计中，模型被施加强迫注意力以探究“影响变量 (Impact)”——即分析前序对话事件如何诱发当事人的即时情绪变化。该机制显著消除了缺乏背景推导的短文本误判问题。
-- **系统提示词服从能力**：作为 70 亿参数量级的逻辑生成基础底座，模型跳出了传统分类器仅反馈固定标签向量的藩篱，能依据人类指令结构化生成 `Emotion`（情感判定）、`Speaker`（发言者角色识别）与 `Impact`（因果归因），实现具备深度解释性的白盒预判过程。
+- **极细粒度标签识别极限 (Fine-Grained ERC)**：在 EmpatheticDialogues 测试集的 28 类极细粒度情绪空间中，本模型超越了传统专用型网络结构，取得了 **53.55%** 的 Weighted F1 成绩。
+- **高阶情绪价态聚类 (Coarse-Grained Upper Bound)**：即使面对高度复杂的人际对话，当对标签进行情绪价态（8 分类 Valence 簇）聚合时，模型性能依然表现出了高度的稳定识别力，精度达到了卓越的 **73.38%** Weighted F1。
+- **稳健的上下文感知 (Robust Context Awareness)**：基于生成式大语言模型底座强劲的信息融合机制，本模型能有效提取长序列对话历史的时序语义，规避了传统孤立短文本分类带来的短视与逻辑误判。
 
 ## 部署与使用方法
 
@@ -96,9 +96,7 @@
 **出参标准 (Response Payload - JSON格式)**:
 ```json
 {
-  "emotion": "annoyance",
-  "speaker": "Speaker",
-  "impact": "被错误的天气预报误导导致突发的生活困扰"
+  "emotion": "annoyance"
 }
 ```
 
