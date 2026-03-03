@@ -44,7 +44,7 @@
 
 模型在对话情绪识别（Emotion Recognition in Conversations, ERC）的标准化评估中达到 State-of-the-Art (SOTA) 级别的性能。
 
-- **极细粒度标签识别极限 (Fine-Grained ERC)**：在 EmpatheticDialogues 测试集的 28 类极细粒度情绪空间中，本模型超越了传统专用型网络结构，取得了 **53.55%** 的 Weighted F1 成绩。
+- **极细粒度标签识别极限 (Fine-Grained ERC)**：在 GoEmotions 测试集的 28 类极细粒度情绪空间中，本模型超越了传统专用型网络结构，取得了 **53.55%** 的 Weighted F1 成绩。
 - **高阶情绪价态聚类 (Coarse-Grained Upper Bound)**：即使面对高度复杂的人际对话，当对标签进行情绪价态（8 分类 Valence 簇）聚合时，模型性能依然表现出了高度的稳定识别力，精度达到了卓越的 **73.38%** Weighted F1。
 - **稳健的上下文感知 (Robust Context Awareness)**：基于生成式大语言模型底座强劲的信息融合机制，本模型能有效提取长序列对话历史的时序语义，规避了传统孤立短文本分类带来的短视与逻辑误判。
 
