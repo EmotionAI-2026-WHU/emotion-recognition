@@ -43,7 +43,7 @@
 |---|---|---|---|
 | **EmpatheticDialogues** | HuggingFace (`empathetic_dialogues`) | 32 | 基于共情对话的情绪标注语料，覆盖日常人际交互场景 |
 | **GoEmotions** | HuggingFace (`go_emotions`) | 27 | 来自 Reddit 评论的大规模多标签情感分类数据集 |
-| **EmoryNLP** | GitHub (`emorynlp/emotion-detection`) | 7 | 源自电视剧对白的多轮对话情绪检测语料 |
+
 
 原始数据经 `organize_raw_datasets.py` 下载整理后存放于 `ERC1/data/raw/`，再经 `prepare_data.py` 进行上下文窗口拼接与 Prompt 格式化，最终生成的训练/验证/测试样本存放于 `ERC1/data/json/`。
 
@@ -139,3 +139,4 @@
 
 ---
 *Powered by WHU EmotionAI 2026 Team.*
+模型下载地址：https://huggingface.co/fQwQf/erc-qwen2.5-7b-sota
