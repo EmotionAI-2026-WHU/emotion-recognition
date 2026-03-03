@@ -1,0 +1,10 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [],
+    "python.pythonPath": "D:\\Programs\\Miniconda3\\envs\\erc-api\\python.exe",
+    "python.defaultInterpreterPath": "D:\\Programs\\Miniconda3\\envs\\erc-api\\python.exe",
+    "code-runner.executorMap": {
+        "python": "\"D:\\Programs\\Miniconda3\\envs\\erc-api\\python.exe\" -u $fullFileName"
+    }
+}

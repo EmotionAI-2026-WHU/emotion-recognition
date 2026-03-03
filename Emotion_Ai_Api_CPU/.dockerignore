@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+venv/
+env/
+.git/
+.vscode/
+
+# Ignore local downloaded models or cache to avoid swelling the build context
+models/
+output/
+outputs/
+cache/
+data/
+
+# OS generated files
+.DS_Store
+Thumbs.db
