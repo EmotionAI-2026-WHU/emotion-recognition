@@ -134,3 +134,4 @@
 
 ---
 *Powered by WHU EmotionAI 2026 Team.*
+模型下载地址：https://huggingface.co/fQwQf/erc-qwen2.5-7b-sota
