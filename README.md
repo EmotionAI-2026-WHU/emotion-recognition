@@ -61,7 +61,7 @@
 - **数据集文件**：
   - **原始模型下载的数据源**（整理后）：位于 `ERC1/data/raw/` 目录下。
   - **清洗并组装上下文后（用于训练和评估）的语料集**：存放在 `ERC1/data/json/` 目录下。
-- **模型权重**：保存在https://huggingface.co/fQwQf/erc-qwen2.5-7b-sota中
+- **模型权重**：保存在https://huggingface.co/fQwQf/erc-qwen2.5-7b-sota 中
 
 
 ## 数据集说明
