@@ -33,7 +33,9 @@ venv.bak/
 # Project Specific (Do NOT upload to GitHub)
 ERC/
 te/
-
+generate_ppt.py
+~*.pptx
+verify*.py
 # Data and Models (only root-level)
 /data/
 cache/
