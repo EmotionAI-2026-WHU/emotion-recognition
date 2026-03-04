@@ -25,21 +25,24 @@ echo -e "\n[2/4] 连接镜像节点并下载原始数据集..."
 export HF_ENDPOINT="https://hf-mirror.com"
 export HF_HUB_ENABLE_HF_TRANSFER="1"
 
+# 进入 ERC1 目录以保证所有配置的相对路径解析正确
+cd ERC1 || exit 1
+
 # 确保目录存在
 mkdir -p data/raw
 mkdir -p cache/data
-mkdir -p outputs/my_finetuned_lora
+mkdir -p ../outputs/my_finetuned_lora
 
 # 下载原始数据
 echo ">>> 执行 organize_raw_datasets.py..."
-python ERC1/scripts/organize_raw_datasets.py
+python scripts/organize_raw_datasets.py
 
 # ==========================================
 # 阶段 3: 数据清洗与特征预处理
 # ==========================================
 echo -e "\n[3/4] 清洗数据并构建 Context / 对话级 Sample 缓存..."
 echo ">>> 执行 prepare_data.py..."
-python ERC1/scripts/prepare_data.py
+python scripts/prepare_data.py
 
 # ==========================================
 # 阶段 4: 模型底层下载与并行微调训练
@@ -48,13 +51,16 @@ echo -e "\n[4/4] 启动 Qwen2.5-7B LoRA 微调训练..."
 echo ">>> 执行 train_7b_sota.py..."
 # 此脚本在运行时遇到 AutoModelForCausalLM.from_pretrained 会自动从镜像下载基座模型
 # 然后运用 QLoRA 进行 4-bit 并行训练
-python ERC1/scripts/train_7b_sota.py \
+python scripts/train_7b_sota.py \
     --model_name "Qwen/Qwen2.5-7B-Instruct" \
-    --output_dir "./outputs/my_finetuned_lora" \
+    --output_dir "../outputs/my_finetuned_lora" \
     --epochs 3 \
     --batch_size 1 \
     --grad_acc 32 \
     --lr 2e-5
+
+# 恢复至根目录
+cd ..
 
 echo -e "\n端到端管线执行完毕！"
 echo "恭喜！您微调后的 LoRA 权重已保存在 './outputs/my_finetuned_lora' 目录中。"
