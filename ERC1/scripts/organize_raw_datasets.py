@@ -5,7 +5,6 @@ Download and organize raw datasets to data/raw/
 This script downloads the original raw files from:
 - EmpatheticDialogues (HuggingFace)
 - GoEmotions (HuggingFace)
-- EmoryNLP (already downloaded from GitHub)
 """
 
 import os
@@ -90,29 +89,7 @@ def download_goemotions_raw(output_dir: str):
         return False
 
 
-def check_emorynlp_raw(output_dir: str):
-    """Check if EmoryNLP raw data exists"""
-    print("\n" + "="*60)
-    print("Checking EmoryNLP raw data")
-    print("="*60)
-    
-    dataset_dir = Path(output_dir) / "emorynlp"
-    
-    if not dataset_dir.exists():
-        print(f"❌ EmoryNLP directory not found: {dataset_dir}")
-        print("Please download manually from:")
-        print("  wget https://github.com/emorynlp/emotion-detection/tree/master/json")
-        return False
-    
-    files = list(dataset_dir.glob("*.json"))
-    if files:
-        print(f"✅ EmoryNLP found: {len(files)} files")
-        for f in files:
-            print(f"  - {f.name}")
-        return True
-    else:
-        print(f"❌ No JSON files found in {dataset_dir}")
-        return False
+
 
 
 def create_dataset_info(output_dir: str):
@@ -130,12 +107,6 @@ def create_dataset_info(output_dir: str):
                 "description": "GoEmotions dataset with 27 emotion categories",
                 "files": ["train.json", "validation.json", "test.json"],
                 "url": "https://huggingface.co/datasets/go_emotions"
-            },
-            "emorynlp": {
-                "source": "GitHub (emorynlp/emotion-detection)",
-                "description": "EmoryNLP emotion detection dataset",
-                "files": ["emotion-detection-trn.json", "emotion-detection-dev.json", "emotion-detection-tst.json"],
-                "url": "https://github.com/emorynlp/emotion-detection"
             }
         },
         "note": "All datasets are mapped to a unified 28-class emotion taxonomy"
@@ -178,8 +149,7 @@ def main():
         print("\n✅ GoEmotions already exists")
         results["goemotions"] = True
     
-    # 3. EmoryNLP
-    results["emorynlp"] = check_emorynlp_raw(output_dir)
+
     
     # Create info file
     create_dataset_info(output_dir)
@@ -202,10 +172,6 @@ def main():
     print("│   ├── train.json")
     print("│   ├── validation.json")
     print("│   └── test.json")
-    print("├── emorynlp/")
-    print("│   ├── emotion-detection-trn.json")
-    print("│   ├── emotion-detection-dev.json")
-    print("│   └── emotion-detection-tst.json")
     print("└── dataset_info.json")
 
 

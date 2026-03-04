@@ -158,22 +158,20 @@ def load_all_datasets_balanced(max_samples=None):
     """
     Load and balance datasets
     
+    
     Recommended ratios:
     - EmpatheticalDialogues: 60%
     - GoEmotions: 40%
-    
-    Note: EmoryNLP is excluded due to limited label coverage (only 7 classes vs 29 unified)
     """
     processor = DataProcessor()
     
     print("Loading datasets...")
-    print("Note: Using EmpatheticDialogues + GoEmotions only (EmoryNLP excluded)")
+    print("Note: Using EmpatheticDialogues + GoEmotions")
     
     # Load each dataset
     datasets = {
         "empathetic": processor.load_samples("./cache/data/train_samples.json"),
         "goemotions": [],  # Will be loaded from raw
-        # "emorynlp": [],   # EXCLUDED: only 7 classes, too coarse-grained
     }
     
     # Load GoEmotions from raw
@@ -222,14 +220,14 @@ def load_all_datasets_balanced(max_samples=None):
         print(f"⚠ GoEmotions not loaded: {e}")
     
     # Balance and combine
-    # Target ratios: 60% Empathetic, 40% GoEmotions (EmoryNLP excluded)
+    # Target ratios: 60% Empathetic, 40% GoEmotions
     emp_samples = [s for s in datasets["empathetic"] if s.dataset == "empathetic"]
     go_samples = datasets["goemotions"]
     
     print(f"\nDataset statistics before balancing:")
     print(f"  Empathetic: {len(emp_samples)}")
     print(f"  GoEmotions: {len(go_samples)}")
-    print(f"  EmoryNLP: EXCLUDED (coarse-grained, only 7 classes)")
+
     
     # Determine target sizes based on available data
     if max_samples:
@@ -307,8 +305,8 @@ def evaluate(model, dataloader, device):
     """Evaluate model"""
     model.eval()
     total_loss = 0
-    dataset_correct = {k: 0 for k in ["empathetic", "goemotions", "emorynlp"]}
-    dataset_total = {k: 0 for k in ["empathetic", "goemotions", "emorynlp"]}
+    dataset_correct = {k: 0 for k in ["empathetic", "goemotions"]}
+    dataset_total = {k: 0 for k in ["empathetic", "goemotions"]}
     
     with torch.no_grad():
         for batch in tqdm(dataloader, desc="Evaluating"):
@@ -496,7 +494,7 @@ def main():
             "learning_rate": args.lr,
             "max_samples": args.max_samples,
             "best_val_loss": best_val_loss,
-            "datasets": ["empathetic", "goemotions"],  # EmoryNLP excluded
+            "datasets": ["empathetic", "goemotions"],
             "label_mapping": "unified_28_class",
             "taxonomy_version": "v1.0",
         }, f, indent=2)

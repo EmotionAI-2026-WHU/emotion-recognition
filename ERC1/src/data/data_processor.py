@@ -6,7 +6,6 @@ This module handles loading and preprocessing of multiple emotion datasets:
 - GoEmotions
 - IEMOCAP
 - MELD
-- EmoryNLP
 """
 
 import os

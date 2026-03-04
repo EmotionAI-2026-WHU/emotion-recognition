@@ -78,7 +78,6 @@ evaluation:
     empathetic: 0.65
     iemocap: 0.71
     meld: 0.69
-    emory: 0.41
   confusion_matrix: true
   per_class_metrics: true
 

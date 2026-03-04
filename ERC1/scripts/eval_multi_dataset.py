@@ -67,16 +67,7 @@ class ConsistentLabelMapper:
         mapped = TAXONOMY.map_emotion(primary_label, "goemotions")
         return mapped if mapped else "neutral"
     
-    @staticmethod
-    def map_emorynlp_label(emotion: str) -> str:
-        """
-        Map EmoryNLP label to unified label
-        """
-        if not emotion:
-            return "neutral"
-        
-        mapped = TAXONOMY.map_emotion(emotion, "emory")
-        return mapped if mapped else "neutral"
+
 
 
 def load_test_data_with_consistent_mapping(dataset_name: str, split: str = "test"):
@@ -84,7 +75,7 @@ def load_test_data_with_consistent_mapping(dataset_name: str, split: str = "test
     Load test data with consistent label mapping
     
     Args:
-        dataset_name: 'empathetic', 'goemotions', or 'emorynlp'
+        dataset_name: 'empathetic' or 'goemotions'
         split: 'train', 'validation', or 'test'
     
     Returns:
@@ -132,40 +123,7 @@ def load_test_data_with_consistent_mapping(dataset_name: str, split: str = "test
         except Exception as e:
             print(f"Error loading GoEmotions {split}: {e}")
     
-    elif dataset_name == "emorynlp":
-        # Load from raw and apply consistent mapping
-        try:
-            split_file = {
-                "train": "emotion-detection-trn.json",
-                "validation": "emotion-detection-dev.json",
-                "test": "emotion-detection-tst.json"
-            }.get(split, "emotion-detection-tst.json")
-            
-            with open(f"./data/raw/emorynlp/{split_file}") as f:
-                raw_data = json.load(f)
-            
-            utterance_id = 0
-            for ep in raw_data.get("episodes", []):
-                for scene in ep.get("scenes", []):
-                    for utt in scene.get("utterances", []):
-                        emotion = utt.get("emotion")
-                        if emotion:
-                            unified_emotion = mapper.map_emorynlp_label(emotion)
-                            
-                            sample = DialogueSample(
-                                sample_id=f"em_{split}_{utterance_id}",
-                                dialogue_history=[],
-                                target_utterance=utt.get("text", ""),
-                                emotion=unified_emotion,
-                                emotion_idx=TAXONOMY.get_emotion_idx(unified_emotion),
-                                speaker=utt.get("speaker", "Speaker"),
-                                dataset="emorynlp",
-                            )
-                            samples.append(sample)
-                            utterance_id += 1
-                            
-        except Exception as e:
-            print(f"Error loading EmoryNLP {split}: {e}")
+
     
     return samples
 
@@ -332,7 +290,7 @@ def print_results(results, model_name=""):
             print(f"    {dataset}: {actual:.4f} / {target:.4f} {status}")
     
     # Per-dataset results
-    for dataset in ["empathetic", "goemotions", "emorynlp"]:
+    for dataset in ["empathetic", "goemotions"]:
         if dataset in results:
             ds_results = results[dataset]
             print(f"\n【{dataset.upper()}】")
@@ -356,7 +314,7 @@ def main():
     parser.add_argument("--base_model", type=str, default="Qwen/Qwen2.5-7B-Instruct")
     parser.add_argument("--datasets", type=str, nargs="+", 
                        default=["empathetic", "goemotions"],
-                       choices=["empathetic", "goemotions", "emorynlp", "all"],
+                       choices=["empathetic", "goemotions", "all"],
                        help="Datasets to evaluate on")
     parser.add_argument("--split", type=str, default="test",
                        choices=["train", "validation", "test"])
@@ -381,7 +339,6 @@ def main():
     print(f"\nNote: Using consistent label mapping with training")
     print(f"      - Unified 28-class taxonomy")
     print(f"      - GoEmotions: using first label only")
-    print(f"      - EmoryNLP: coarse-grained (7→7 classes)")
     
     # Load model
     print("\nLoading model...")
@@ -411,7 +368,7 @@ def main():
     
     datasets_to_eval = args.datasets
     if "all" in datasets_to_eval:
-        datasets_to_eval = ["empathetic", "goemotions", "emorynlp"]
+        datasets_to_eval = ["empathetic", "goemotions"]
     
     for dataset_name in datasets_to_eval:
         print(f"\n{'='*70}")
