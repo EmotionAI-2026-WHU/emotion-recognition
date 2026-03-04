@@ -35,7 +35,6 @@ SOTA_TARGETS = {
     "empathetic": 0.65,
     "iemocap": 0.71,
     "meld": 0.69,
-    "emory": 0.41,
 }
 
 
@@ -352,7 +351,7 @@ def main():
     parser.add_argument("--target_f1", type=float, default=0.65)
     parser.add_argument("--max_iterations", type=int, default=5)
     parser.add_argument("--dataset", type=str, default="empathetic", 
-                        choices=["empathetic", "iemocap", "meld", "emory"])
+                        choices=["empathetic", "iemocap", "meld"])
     args = parser.parse_args()
     
     # Get target F1 for dataset

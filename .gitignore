@@ -38,8 +38,7 @@ te/
 /data/
 cache/
 outputs/
-models/
-!Emotion_Ai_Api_CPU/src/models/
+
 *.safetensors
 *.bin
 *.pt

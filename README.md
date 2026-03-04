@@ -42,7 +42,7 @@
 ├── ERC1/                       # 算法研究、模型训练与推理评估引擎
 │   ├── configs/                # 模型微调、部署环境配置文件
 │   ├── data/                   # 对话情感语料库与格式化数据集
-│   │   ├── raw/                # 原始下载数据（EmpatheticDialogues, GoEmotions, EmoryNLP）
+│   │   ├── raw/                # 原始下载数据（EmpatheticDialogues, GoEmotions）
 │   │   └── json/               # 经上下文拼接后的训练/验证/测试样本集
 │   ├── paper/                  # SOTA 性能论证相关的学术论文原稿
 │   ├── scripts/                # 数据预处理、SFT模型训练及评测脚本

@@ -2,7 +2,7 @@
 Unified Emotion Taxonomy for Multi-Dataset Fine-Grained Emotion Recognition
 
 This module defines a unified emotion label space that maps emotions from
-different datasets (EmpatheticDialogues, GoEmotions, IEMOCAP, MELD, EmoryNLP)
+different datasets (EmpatheticDialogues, GoEmotions, IEMOCAP, MELD)
 to a common taxonomy.
 """
 
@@ -65,7 +65,6 @@ class EmotionTaxonomy:
     goemotions_mapping: Dict[str, str] = None
     iemocap_mapping: Dict[str, str] = None
     meld_mapping: Dict[str, str] = None
-    emory_mapping: Dict[str, str] = None
     
     def __post_init__(self):
         self.emotions = [e.value for e in UnifiedEmotion]
@@ -161,16 +160,7 @@ class EmotionTaxonomy:
             "surprise": "surprise",
         }
         
-        # EmoryNLP (7 classes) mapping
-        self.emory_mapping = {
-            "Joyful": "joy",
-            "Mad": "anger",
-            "Peaceful": "happiness",
-            "Neutral": "neutral",
-            "Powerful": "pride",
-            "Sad": "sadness",
-            "Scared": "fear",
-        }
+
     
     def get_num_classes(self) -> int:
         """Get number of emotion classes"""
@@ -183,7 +173,6 @@ class EmotionTaxonomy:
             "goemotions": self.goemotions_mapping,
             "iemocap": self.iemocap_mapping,
             "meld": self.meld_mapping,
-            "emory": self.emory_mapping,
         }
         
         dataset = dataset.lower()
