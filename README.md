@@ -47,8 +47,6 @@
 │   ├── paper/                  # SOTA 性能论证相关的学术论文原稿
 │   ├── scripts/                # 数据预处理、SFT模型训练及评测脚本
 │   └── src/                    # 底层模型库、Pytorch架构及Prompt模板
-├── verify_deployment.py        # 原生 Python 环境下的 API 指标自检脚本
-├── verify_docker_deployment.py # 覆盖启动模式的 Docker 容器连通性测试脚本
 └── run_pipeline.sh             # 一键拉取底座、数据打通及并行微调管线
 ```
 
